@@ -1,20 +1,3 @@
-# tui-scheduler
-
-(Very) minimalistic TUI task scheduler
-
-The application reads a series of user-defined tasks from a JSON file, filters them by date and shows the relevant entries in a command line interface. 
-The Rust [tui-rs](https://github.com/fdehau/tui-rs) library is used for the text interface. The initial development was based
-on the rust-tui tutorial found here: [rust-and-tui-building-a-command-line-interface-in-rust](https://blog.logrocket.com/rust-and-tui-building-a-command-line-interface-in-rust).
-The color scheme was inspired by the [Spotify TUI](https://github.com/Rigellute/spotify-tui).
-
-
-![Interface](interface.png "Interface")
-
-
-
-The JSON file needs to be defined as follows:
-
-```json
 [
 	{
 		"name": "Task 1",
@@ -41,6 +24,3 @@ The JSON file needs to be defined as follows:
 		"end": "2022-01-01T11:00:00Z"
 	}
 ]
-```
-
-
