@@ -11,7 +11,7 @@ The `up` and `down` keys are used for navigation, `q` is for exiting.
 ![Interface](mat/interface.png "Interface")
 
 
-The application expects a JSON file named 'tasks.json' file in the $HOME directory.
+The application expects a JSON file named `tasks.json` file in the users `$HOME` directory.
 Its structure needs to be as follows:
 
 ```json
