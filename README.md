@@ -6,7 +6,7 @@ The application reads a series of user-defined tasks from a JSON file, filters t
 The Rust [tui-rs](https://github.com/fdehau/tui-rs) library is used for the text interface. The initial development was based
 on the rust-tui tutorial found here: [rust-and-tui-building-a-command-line-interface-in-rust](https://blog.logrocket.com/rust-and-tui-building-a-command-line-interface-in-rust).
 The color scheme was inspired by the [Spotify TUI](https://github.com/Rigellute/spotify-tui).
-
+The 'up' and 'down' keys are used for navigation, 'q' for exiting. 
 
 ![Interface](mat/interface.png "Interface")
 
@@ -19,7 +19,7 @@ Its structure needs to be as follows:
 	{
 		"name": "Task 1",
 		"category": "tasks",
-		"description": "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquid ex ea commodi consequat. Quis aute iure reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint obcaecat cupiditat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+		"description": "Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua.",
 		"priority": 1,
 		"begin": "2019-01-01T11:00:00Z",
 		"end": "2021-07-29T11:00:00Z"

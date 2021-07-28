@@ -278,35 +278,35 @@ fn render_entries<'a>(entry_list: &std::vec::Vec<Entry>, entry_list_state: &List
         Row::new(vec![
             Cell::from(""),
             Cell::from(
-				chrono::Local::now().format("%a %b %e").to_string()
+				chrono::Local::now().format("%a %e").to_string()
 				).style(Style::default()
                 .fg(*dict.get( "table_header" ).unwrap())
             ),
-            Cell::from((chrono::Local::now().date() + chrono::Duration::days(1)).format("%a %b %e").to_string()).style(Style::default()
+            Cell::from((chrono::Local::now().date() + chrono::Duration::days(1)).format("%a %e").to_string()).style(Style::default()
                 .fg(*dict.get( "table_header" ).unwrap())
             ),
             Cell::from(Spans::from(vec![
-                Span::styled((chrono::Local::now().date() + chrono::Duration::days(2)).format("%a %b %e").to_string(), Style::default()
+                Span::styled((chrono::Local::now().date() + chrono::Duration::days(2)).format("%a %e").to_string(), Style::default()
                     .fg(*dict.get( "table_header" ).unwrap())
                 )
             ])),
             Cell::from(Spans::from(vec![
-                Span::styled((chrono::Local::now().date() + chrono::Duration::days(3)).format("%a %b %e").to_string(), Style::default()
+                Span::styled((chrono::Local::now().date() + chrono::Duration::days(3)).format("%a %e").to_string(), Style::default()
                     .fg(*dict.get( "table_header" ).unwrap())
                 )
             ])),
             Cell::from(Spans::from(vec![
-                Span::styled((chrono::Local::now().date() + chrono::Duration::days(4)).format("%a %b %e").to_string().to_string(), Style::default()
+                Span::styled((chrono::Local::now().date() + chrono::Duration::days(4)).format("%a %e").to_string().to_string(), Style::default()
                     .fg(*dict.get( "table_header" ).unwrap())
                 )
             ])),
             Cell::from(Spans::from(vec![
-                Span::styled((chrono::Local::now().date() + chrono::Duration::days(5)).format("%a %b %e").to_string(), Style::default()
+                Span::styled((chrono::Local::now().date() + chrono::Duration::days(5)).format("%a %e").to_string(), Style::default()
                     .fg(*dict.get( "table_header" ).unwrap())
                 )
             ])),
             Cell::from(Spans::from(vec![
-                Span::styled((chrono::Local::now().date() + chrono::Duration::days(6)).format("%a %b %e").to_string(), Style::default()
+                Span::styled((chrono::Local::now().date() + chrono::Duration::days(6)).format("%a %e").to_string(), Style::default()
                     .fg(*dict.get( "table_header" ).unwrap())
                 )
             ])),
@@ -318,14 +318,14 @@ fn render_entries<'a>(entry_list: &std::vec::Vec<Entry>, entry_list_state: &List
         .borders(Borders::ALL)
     )
     .widths(&[
-		Constraint::Percentage(30), 
-		Constraint::Percentage(10), 
-		Constraint::Percentage(10), 
-		Constraint::Percentage(10), 
-		Constraint::Percentage(10), 
-		Constraint::Percentage(10), 
-		Constraint::Percentage(10), 
-		Constraint::Percentage(10)
+		Constraint::Percentage(23), 
+		Constraint::Percentage(11), 
+		Constraint::Percentage(11), 
+		Constraint::Percentage(11), 
+		Constraint::Percentage(11), 
+		Constraint::Percentage(11), 
+		Constraint::Percentage(11), 
+		Constraint::Percentage(11)
 	])
     .column_spacing(0)
     .highlight_style(
