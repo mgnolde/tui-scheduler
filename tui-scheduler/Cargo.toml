@@ -1,7 +1,7 @@
 [package]
-name = "rust-commandline-example"
+name = "tui-scheduler"
 version = "0.1.0"
-authors = ["Mario Zupan <mario@zupzup.org>"]
+authors = ["Michael Nolde <mno@flatpolar.org>"]
 edition = "2018"
 
 [dependencies]
@@ -13,4 +13,5 @@ rand = { version = "0.7.3", default-features = false, features = ["std"] }
 tui = { version = "0.14", default-features = false, features = ['crossterm', 'serde'] }
 thiserror = "1.0"
 dict = "0.1.5"
+home = "0.5.3"
 

@@ -25,7 +25,9 @@ use chrono;
 
 
 
-const DB_PATH: &str = "./data/db.json";
+
+
+
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -213,9 +215,9 @@ fn render_entries<'a>(entry_list: &std::vec::Vec<Entry>, entry_list_state: &List
 
 			for i in 0..7 {
 				if entry.begin.date() <= chrono::Local::now().date() + chrono::Duration::seconds(i * 24 * 60 * 60) && entry.end.date() >= chrono::Local::now().date() + chrono::Duration::seconds(i * 24 * 60 * 60) {
-					days.push("■■■■■■■■■■■■■■");
+					days.push("■■■■■■■■■■■■■■■■■■■■■■■■■■■■");
 				} else {
-					days.push("              ");
+					days.push("                            ");
 				}
 			}
 
@@ -315,7 +317,16 @@ fn render_entries<'a>(entry_list: &std::vec::Vec<Entry>, entry_list_state: &List
         .title("Tasks")
         .borders(Borders::ALL)
     )
-    .widths(&[Constraint::Length(25), Constraint::Length(15), Constraint::Length(15), Constraint::Length(15), Constraint::Length(15), Constraint::Length(15), Constraint::Length(15), Constraint::Length(15)])
+    .widths(&[
+		Constraint::Percentage(30), 
+		Constraint::Percentage(10), 
+		Constraint::Percentage(10), 
+		Constraint::Percentage(10), 
+		Constraint::Percentage(10), 
+		Constraint::Percentage(10), 
+		Constraint::Percentage(10), 
+		Constraint::Percentage(10)
+	])
     .column_spacing(0)
     .highlight_style(
         Style::default()
@@ -381,34 +392,56 @@ fn render_entries<'a>(entry_list: &std::vec::Vec<Entry>, entry_list_state: &List
 }
 
 fn read_db() -> Result<Vec<Entry>, Error> {
-    let db_content = fs::read_to_string(DB_PATH)?;
-    let mut parsed: Vec<Entry> = serde_json::from_str(&db_content)?;
+	
+	
+	match home::home_dir() {
 
-	let mut i = 0;	
-	let mut remove_ids = Vec::new();
-
-
-	for name in parsed.iter() {
-		if name.begin.date() > chrono::Local::now().date() + chrono::Duration::seconds(7 * 24 * 60 * 60) {
-			remove_ids.push(i);
-		}
-
-		if name.end.date() < chrono::Local::now().date() {
-			remove_ids.push(i);
-		}
-
-		i = i + 1;
-
+		Some(path) => {
+	
+			let path_str = path.display().to_string();
+	
+			let mut path_prefix: String = path_str.to_owned();
+			let path_suffix: &str = "/tasks.json";
+	
+			path_prefix.push_str(path_suffix);
+		
+			
+		    let db_content = fs::read_to_string(path_prefix)?;
+		    let mut parsed: Vec<Entry> = serde_json::from_str(&db_content)?;
+		
+			let mut i = 0;	
+			let mut remove_ids = Vec::new();
+		
+		
+			for name in parsed.iter() {
+				if name.begin.date() > chrono::Local::now().date() + chrono::Duration::seconds(7 * 24 * 60 * 60) {
+					remove_ids.push(i);
+				}
+		
+				if name.end.date() < chrono::Local::now().date() {
+					remove_ids.push(i);
+				}
+		
+				i = i + 1;
+		
+			}
+		
+			
+			for id in remove_ids.iter().rev() {	
+				parsed.remove(*id);
+			}
+	
+		    Ok(parsed)
+		},
+		None =>  {
+			let path_str = "".to_string();
+			let parsed: Vec<Entry> = serde_json::from_str(&path_str)?;
+			Ok(parsed)
+			},
 	}
-
-	
-	for id in remove_ids.iter().rev() {	
-		parsed.remove(*id);
-	}	
-
-
+		
 	
 
-    Ok(parsed)
+
 }
 

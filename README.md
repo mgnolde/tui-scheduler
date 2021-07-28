@@ -8,11 +8,11 @@ on the rust-tui tutorial found here: [rust-and-tui-building-a-command-line-inter
 The color scheme was inspired by the [Spotify TUI](https://github.com/Rigellute/spotify-tui).
 
 
-![Interface](interface.png "Interface")
+![Interface](mat/interface.png "Interface")
 
 
-
-The JSON file needs to be defined as follows:
+The application expects a JSON file named 'tasks.json' file in the $HOME directory.
+Its structure needs to be as follows:
 
 ```json
 [
