@@ -391,57 +391,28 @@ fn render_entries<'a>(entry_list: &std::vec::Vec<Entry>, entry_list_state: &List
     (home, entry_detail)
 }
 
+
 fn read_db() -> Result<Vec<Entry>, Error> {
-	
-	
-	match home::home_dir() {
-
-		Some(path) => {
-	
-			let path_str = path.display().to_string();
-	
-			let mut path_prefix: String = path_str.to_owned();
-			let path_suffix: &str = "/tasks.json";
-	
-			path_prefix.push_str(path_suffix);
-		
-			
-		    let db_content = fs::read_to_string(path_prefix)?;
-		    let mut parsed: Vec<Entry> = serde_json::from_str(&db_content)?;
-		
-			let mut i = 0;	
-			let mut remove_ids = Vec::new();
-		
-		
-			for name in parsed.iter() {
-				if name.begin.date() > chrono::Local::now().date() + chrono::Duration::seconds(7 * 24 * 60 * 60) {
-					remove_ids.push(i);
-				}
-		
-				if name.end.date() < chrono::Local::now().date() {
-					remove_ids.push(i);
-				}
-		
-				i = i + 1;
-		
-			}
-		
-			
-			for id in remove_ids.iter().rev() {	
-				parsed.remove(*id);
-			}
-	
-		    Ok(parsed)
-		},
-		None =>  {
-			let path_str = "".to_string();
-			let parsed: Vec<Entry> = serde_json::from_str(&path_str)?;
-			Ok(parsed)
-			},
-	}
-		
-	
-
-
+    match home::home_dir() {
+        Some(mut path) => {
+            path.push("tasks.json");
+            let now = chrono::Local::now().date();
+            let parsed: Vec<_> = serde_json::from_str::<Vec<Entry>>(&fs::read_to_string(path)?)?
+                .drain(..)
+                .filter_map(|entry| {
+                    if entry.begin.date() > now + chrono::Duration::days(7)
+                        || entry.end.date() < now
+                    {
+                        None
+                    } else {
+                        Some(entry)
+                    }
+                })
+                .collect();
+            Ok(parsed)
+        }
+        None => Ok(Default::default()),
+    }
 }
+
 
